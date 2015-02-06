@@ -8,9 +8,10 @@ using namespace std;
 // short integer random number generator from stdlib
 int rand(void); 
 
+//insertion sort algorithm
 void insertionsort(int array[], size_t size) {
     for(size_t i = 0 ; i < size -1; i++) {
-        size_t j = 0; 
+        size_t j =  i + 1; 
         int item = array[j];
         while (j > 0 && item < array[j-1]) {
             array[j] = array[j-1];
@@ -19,32 +20,13 @@ void insertionsort(int array[], size_t size) {
         array[j] = item;
     }
 }
-
- 
-/**
- * Insertion sort (descending order)
- * @param array array to be sorted
- * @param size size of the array
- */
-void insertionSort(int array[], int size) {
-    for (int i = 0; i < size - 1; i++) {
-        int j = i + 1;
-        int tmp = array[j];
-        while (j > 0 && tmp > array[j-1]) {
-            array[j] = array[j-1];
-            j--;
-        }
-        array[j] = tmp;
-    }
-}
-
-
+//swap procedure for quicksort algorithm
 void swap(int array[], size_t l, size_t r) {
     int item = array[r]; 
     array[r] = array[l];
     array[l] = item;         
 }
-
+//quicksort algorithm
 void quicksort(int array[], size_t l, size_t r) {
     if(l < r) { 
         size_t bound = l;
