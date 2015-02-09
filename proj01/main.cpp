@@ -1,14 +1,45 @@
-
 #include <iostream>
 #include <cassert>
 #include <math.h>
 #include <sys/time.h>
 #include <stdlib.h>
-
 using namespace std;
 
 // short integer random number generator from stdlib
 int rand(void); 
+
+//insertion sort algorithm
+void insertionsort(int array[], size_t size) {
+    for(size_t i = 0 ; i < size -1; i++) {
+        size_t j =  i + 1; 
+        int item = array[j];
+        while (j > 0 && item < array[j-1]) {
+            array[j] = array[j-1];
+            j--;
+        }
+        array[j] = item;
+    }
+}
+//swap procedure for quicksort algorithm
+void swap(int array[], size_t l, size_t r) {
+    int item = array[r]; 
+    array[r] = array[l];
+    array[l] = item;         
+}
+//quicksort algorithm
+void quicksort(int array[], size_t l, size_t r) {
+    if(l < r) { 
+        size_t bound = l;
+        for (size_t i = l + 1; i < r; i++) { 
+            if (array[i] < array[l]) {
+                swap(array, i, ++bound);
+            }
+        }
+        swap(array, l, bound);
+        quicksort(array, l, bound);
+        quicksort(array, bound + 1, r);
+    }     
+}
 
 
 int main()
@@ -39,7 +70,7 @@ int main()
 
   gettimeofday(&start, NULL);  // get time at start of function
 
-
+insertionsort(dataArray, size);
   // implement your insertionSort here or call it as a function
   //   =====================InsertionSort===============
   //   You can refer Mark Allan Weiss Third Edition Figure 7.2 page 263
@@ -68,6 +99,8 @@ int main()
   //start = gethrtime();   // hi_resolution time nanoseconds
   gettimeofday(&start, NULL);  // get time at start of function
 
+
+quicksort(copyArray,0, size);
 
   // implement your quicksort here or call it as a function
   // =====================Quicksort ======================
