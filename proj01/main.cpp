@@ -9,38 +9,44 @@ using namespace std;
 int rand(void); 
 
 //insertion sort algorithm
-void insertionsort(int array[], size_t size) {
-    for(size_t i = 0 ; i < size -1; i++) {
-        size_t j =  i + 1; 
-        int item = array[j];
-        while (j > 0 && item < array[j-1]) {
-            array[j] = array[j-1];
-            j--;
+void insertionsort(int array[], size_t s) {
+    int i, temp;
+    for (int j = 1; j <= s; j++) {
+        temp = array[j];
+        i = j-1;
+        while (i >= 0 && array[i] > temp){
+            array[i+1] = array[i];
+            i--;
         }
-        array[j] = item;
+        array[i+1] = temp;
     }
 }
-//swap procedure for quicksort algorithm
-void swap(int array[], size_t l, size_t r) {
-    int item = array[r]; 
-    array[r] = array[l];
-    array[l] = item;         
-}
-//quicksort algorithm
-void quicksort(int array[], size_t l, size_t r) {
-    if(l < r) { 
-        size_t bound = l;
-        for (size_t i = l + 1; i < r; i++) { 
-            if (array[i] < array[l]) {
-                swap(array, i, ++bound);
-            }
-        }
-        swap(array, l, bound);
-        quicksort(array, l, bound);
-        quicksort(array, bound + 1, r);
-    }     
+//partition procedure to be used with quicksort algorithm
+int partition(int array[], int l, int r){
+    int pivot = array[r];
+    int i = l-1;
+    int j = r;
+    while(true){
+        while(array[++i] < pivot && i <= r){}
+        while(array[--j] > pivot && j >= l){}
+        if (i<j)
+                swap(array[i],array[j]);
+        else
+                break;
+    }
+    swap(array[i],array[r]);
+    return i;
 }
 
+
+//quicksort algorithm
+void quicksort(int array[], int l, int r) {
+    if (l < r) {
+        int p = partition(array,l,r);
+        quicksort(array, l, p-1);
+        quicksort(array, p+1, r);
+    }
+}
 
 int main()
 { 
