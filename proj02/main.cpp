@@ -2,10 +2,14 @@
 #include<fstream>
 #include<string>
 using namespace std;
+//node struct
+//3 attributes: a left and right ptr, and a node key
 struct node {
     int key;
     node * LL;
     node * RL;
+    //node constructor
+    //sets LL and RL to nullptr and sets key
     node(int keyy ) {
         key = keyy;
         LL = nullptr;
@@ -13,11 +17,18 @@ struct node {
         cout << "node being created, with key = " << key << endl;
     }
 };
+//BST class
+//one attribute - ptr to root node
 class BST {
     public:
+        //constructor sets root = nullptr
         BST() {root = nullptr;}
+        //destructor calls destroy_BST
         ~BST() {destroy_BST(root);};
+        //returns root node
         node * getRoot() { return root;}
+        //if BST is emtpy root is set to a new node with key passed in
+        //otherwise a call is made to the private insert function
         void insert(int key) {
             if(root!=nullptr) {
                 insert(key,root);
@@ -26,6 +37,7 @@ class BST {
                 root = new node(key);
            }
         }
+        //checks if bst is empty else call private preorder
         void preorder() {
             if (root == nullptr) {
                 cout << "Tree is smpty" << endl;
@@ -35,6 +47,7 @@ class BST {
                 cout << endl;
             }
         }
+        //checks if bst is empty else calls private inorder
         void inorder() {
             if(root == nullptr) {
                 cout << "Tree is empty" << endl;
@@ -44,6 +57,7 @@ class BST {
                 cout << endl;
             }
         }
+        //checks if bst is empty else calls private postorder
         void postorder() {
             if(root == nullptr) {
                 cout << "Tree is empty" << endl;
@@ -53,6 +67,8 @@ class BST {
                 cout << endl;
             }
         }
+        //an attept to display the tree
+        //not part of the project you can ignore it
         void display(node * ptr, int level) {
             int i;
             if(ptr != nullptr) {
@@ -72,6 +88,9 @@ class BST {
         }
     private:
         node* root;
+        //private preorder function
+        //recursive function checks if ptr is equal to nullptr else
+        //outputs the nodes key and calls preorder on the LL and then RL
         void preorder(node* ptr) {
             if(ptr == nullptr) {
             }
@@ -81,6 +100,9 @@ class BST {
                 preorder(ptr->RL);
             }
         }
+        //checks if ptr = nullptr
+        //recursive function then calls itself for the LL then outputs 
+        //the key and calls itself on the RL
         void inorder(node* ptr) {
             if(ptr != nullptr) {
                 inorder(ptr->LL);
@@ -88,6 +110,9 @@ class BST {
                 inorder(ptr->RL);
             }     
         }
+        //recursive postorder function
+        //checks if ptr is equal to nullptr
+        //then calls itself on the LL then on the RL then outputs its key 
         void postorder(node* ptr) {
             if(ptr != nullptr) {
             postorder(ptr->LL);
@@ -95,6 +120,8 @@ class BST {
             cout << ptr->key << " ";
         }
         }
+        //recursive function calls itself on LL then RL then deletes the
+        //node
         void destroy_BST(node * leaf) {
             if(leaf != nullptr) {
                 destroy_BST(leaf->LL);
@@ -102,6 +129,15 @@ class BST {
                 delete leaf;
             }
         }
+
+        //inserts a new key into the tree rotted by inputNode
+        //checks if input node is == to nullptr then sets a new node
+        //with key as the inputNode
+        //else if key is less then inputNodes key
+        //calls itself on the LL if LL is not equal to nullptr
+        //else sets the LL = to a new node with key = key
+        //if key > inputNodes key and RL != nullptr then call itself
+        //else set RL = to a new node with key = key
          void insert(int key, node * inputNode) {
             if(inputNode == nullptr) {
                 inputNode = new node(key);
