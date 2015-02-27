@@ -14,7 +14,7 @@ struct node {
         key = keyy;
         LL = nullptr;
         RL = nullptr;
-        cout << "node being created, with key = " << key << endl;
+        //cout << "node being created, with key = " << key << endl;
     }
 };
 //BST class
@@ -161,22 +161,23 @@ class BST {
         } 
 };
 
-
-int main() {
-    string filename = "";
+int main(int argc, char *argv[]) {
+    string filename = argv[1];
     string intstring = "";
     int keyint;
-    cout << "Please enter a file name: " << endl;
-    cin >> filename;
     ifstream file(filename);
     BST* btree = new BST();
     while(file >> intstring) {
         keyint = stoi(intstring);
         btree->insert(keyint);
     }
+   /* cout << "poor attempt at displaying the tree" << endl;
     btree->display(btree->getRoot(), 1);
-    cout << endl;
+    cout << endl << endl;
+    */cout << "Preorder: ";
     btree->preorder();
+    cout << "Inorder: ";
     btree->inorder();
+    cout << "Postorder: ";
     btree->postorder();
 }

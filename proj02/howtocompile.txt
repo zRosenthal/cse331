@@ -1,0 +1,3 @@
+compile by typing “make” in you terminal
+then you can run with “BST ‘filename’”
+Then when done run “make clean” to cleanup
